@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <style>
+*{
+    box-sizing:border-box;
+}
+body {
+    
+}
+#clock_body{
+    position:fixed;
+    top:calc(50vh - 125px);
+    left:calc(50vw - 125px);
+    height:250px;
+    width:250px;
+    background-color:white;
+    border-style:solid;
+    border-radius:50%;
+}
+#clock_body > div{
+    position:absolute;
+    transform-origin:0% 50%;
+    border-radius:100px;
+    transform:rotate(-90deg);
+}
+#hr{
+    width:30%;
+    height:3px;
+    background-color:red;
+    right:20%;
+    top:calc(50% - 1.5px);
+}
+#min{
+    width:45%;
+    height:2px;
+    background-color:red;
+    right:5%;
+    top:calc(50% - 1px);
+}
+#sec{
+    width:49%;
+    height:1px;
+    background-color:red;
+    right:1%;
+    top:calc(50% - 0.5px);
+}
+#cover{
+    height:5px;
+    width:5px;
+    top:calc(50% - 2.5px);
+    left:calc(50% - 2.5px);
+    background-color:red;
+    transform-origin:50% 50% !important;
+}
+#sup{
+    position:fixed;
+    height:270px;
+    width:270px;
+    background-color:none;
+    top:calc(50vh - 135px);
+    left:calc(50vw - 135px);
+    border-radius:50%;
+    border-style:solid;
+}
+#sup > div{
+    height:4px;
+    width:100%;
+    background-color:white;
+    position:absolute;
+    top:calc(50% - 2px);
+    background-color:black;
+}
+#sup > div > span:nth-child(1){
+    text-align:left;
+}
+#sup > div > span:nth-child(2){
+    text-align:right;
+}
+#sup > div:nth-child(1){
+    transform:rotate(0deg);
+}
+#sup > div:nth-child(2){
+    transform:rotate(30deg);
+}
+#sup > div:nth-child(3){
+    transform:rotate(60deg);
+}
+#sup > div:nth-child(4){
+    transform:rotate(90deg);
+}
+#sup > div:nth-child(5){
+    transform:rotate(120deg);
+}
+#sup > div:nth-child(6){
+    transform:rotate(150deg);
+}
+        </style>
+    </head>
+    <body>
+        <div id="sup">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
+        <div id="clock_body">
+            <div id="hr"></div>
+            <div id="min"></div>
+            <div id="sec"></div>
+            <div id="cover"></div>
+        </div>
+        <script>
+window.onload = function(){
+    function ak(){
+        let hr = document.getElementById("hr");
+        let min = document.getElementById("min");
+        let sec = document.getElementById("sec");
+        
+        var time = new Date();
+        let sec_ = time.getSeconds();
+        let min_ = time.getMinutes();
+        let hr_ = time.getHours();
+        hr.style.transform = "rotate("+((hr_*30) + (min_*0.5) - 90)+"deg)";
+        min.style.transform = "rotate("+(min_*6-90)+"deg)";
+        sec.style.transform = "rotate("+(sec_*6-90)+"deg)";
+    }
+    setInterval(ak,1000);
+}
+        </script>
+    </body>
+</html>
