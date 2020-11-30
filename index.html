@@ -2,13 +2,12 @@
 <html>
     <head>
         <title>Page Title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-*{
+            *{
     box-sizing:border-box;
 }
 body {
-    
+    background-color:none;
 }
 #clock_body{
     position:fixed;
@@ -19,6 +18,7 @@ body {
     background-color:white;
     border-style:solid;
     border-radius:50%;
+    box-shadow:inset 0 0 20px gray;
 }
 #clock_body > div{
     position:absolute;
@@ -29,14 +29,14 @@ body {
 #hr{
     width:30%;
     height:3px;
-    background-color:red;
+    background-color:gray;
     right:20%;
     top:calc(50% - 1.5px);
 }
 #min{
     width:45%;
     height:2px;
-    background-color:red;
+    background-color:gray;
     right:5%;
     top:calc(50% - 1px);
 }
@@ -64,6 +64,7 @@ body {
     left:calc(50vw - 135px);
     border-radius:50%;
     border-style:solid;
+    border-width:1px;
 }
 #sup > div{
     height:4px;
@@ -71,7 +72,8 @@ body {
     background-color:white;
     position:absolute;
     top:calc(50% - 2px);
-    background-color:black;
+    background-color:none;
+    border-style:solid;
 }
 #sup > div > span:nth-child(1){
     text-align:left;
@@ -97,6 +99,17 @@ body {
 #sup > div:nth-child(6){
     transform:rotate(150deg);
 }
+#dt_tm{
+    height:20px;
+    width:20%;
+    box-shadow: 0 0 5px gray;
+    transform:rotate(0deg) !important;
+    top:calc(80% - 15px);
+    left:40%;
+    text-align:center;
+    font-size:10px;
+    font-weight:250;
+}
         </style>
     </head>
     <body>
@@ -114,8 +127,40 @@ body {
             <div id="min"></div>
             <div id="sec"></div>
             <div id="cover"></div>
+            <div id="dt_tm">
+                <span id="date"></span>
+                <span id="month"></span><br>
+                <span id="day"></span>
+            </div>
         </div>
         <script>
+var d1 = new Object();
+var d2 = new Object();
+d1 = {
+    0:'Sun',
+    1:'Mon',
+    2:'Tue',
+    3:'Wed',
+    4:'Thu',
+    5:'Fru',
+    6:'Sat'
+}
+
+d2 = {
+    0:"Jan",
+    1:"Feb",
+    2:"March",
+    3:"April",
+    4:"May",
+    5:"June",
+    6:"July",
+    7:"Aug",
+    8:"Sept",
+    9:"Oct",
+    10:"Nov",
+    11:"Dec"    
+}
+
 window.onload = function(){
     function ak(){
         let hr = document.getElementById("hr");
@@ -123,12 +168,24 @@ window.onload = function(){
         let sec = document.getElementById("sec");
         
         var time = new Date();
+        
         let sec_ = time.getSeconds();
         let min_ = time.getMinutes();
         let hr_ = time.getHours();
+        let dat = time.getDate();
+        let mon = time.getMonth();
+        //let yer = d.getFullYear();
+        let day = time.getDay();
+        let d_y = d1[day];
+        let m_n = d2[mon];
+        
         hr.style.transform = "rotate("+((hr_*30) + (min_*0.5) - 90)+"deg)";
-        min.style.transform = "rotate("+(min_*6-90)+"deg)";
+        min.style.transform = "rotate("+(min_*6-90 + sec_*0.1)+"deg)";
         sec.style.transform = "rotate("+(sec_*6-90)+"deg)";
+        
+        document.getElementById("date").innerHTML = dat;
+        document.getElementById("month").innerHTML = m_n;
+        document.getElementById("day").innerHTML = d_y;
     }
     setInterval(ak,1000);
 }
